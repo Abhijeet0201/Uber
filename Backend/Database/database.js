@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
+
  const connectDB = async () => {
     try {
-        await mongoose.connect("mongodb://localhost:27017/uber");
+        await mongoose.connect(process.env.DB_URL);
         console.log("database connected");
         
     } catch (error) {

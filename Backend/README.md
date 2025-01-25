@@ -62,13 +62,74 @@ Example:
   }
   ```
 
-### Server Error (500)
-- **Description**: Server error, please try again later.
+
+
+# User Login Endpoint
+
+## Endpoint
+`POST /user/login`
+
+## Description
+This endpoint is used to authenticate a user. It validates the input data, checks the user's credentials, and returns an authentication token along with the user data.
+
+## Request Body
+The request body should be a JSON object containing the following fields:
+
+- `email` (string, required, must be a valid email)
+- `password` (string, required, minimum 6 characters)
+
+Example:
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+```
+
+## Responses
+
+### Success (200)
+- **Description**: User authenticated successfully.
 - **Body**:
   ```json
   {
-    "error": "Server error, please try again later"
+    "token": "jwt_token_here",
+    "user": {
+      "_id": "user_id_here",
+      "fullname": {
+        "firstname": "John",
+        "lastname": "Doe"
+      },
+      "email": "john.doe@example.com",
+      "socketId": null
+    }
   }
   ```
+
+### Client Error (400)
+- **Description**: Invalid input data.
+- **Body**:
+  ```json
+  {
+    "errors": [
+      {
+        "msg": "Invalid Email",
+        "param": "email",
+        "location": "body"
+      }
+    ]
+  }
+  ```
+
+### Client Error (401)
+- **Description**: Invalid email or password.
+- **Body**:
+  ```json
+  {
+    "message": "Invalid email or password"
+  }
+  ```
+
+
 
 

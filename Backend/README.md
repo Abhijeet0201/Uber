@@ -2,7 +2,7 @@
 
 ## Endpoint
 `POST /user/register`
- 
+
 ## Description
 This endpoint is used to register a new user. It validates the input data, hashes the password, creates a new user in the database, and returns an authentication token along with the user data.
 
@@ -61,8 +61,6 @@ Example:
     ]
   }
   ```
-
-
 
 # User Login Endpoint
 
@@ -127,6 +125,68 @@ Example:
   ```json
   {
     "message": "Invalid email or password"
+  }
+  ```
+
+# User Profile Endpoint
+
+## Endpoint
+`GET /user/profile`
+
+## Description
+This endpoint is used to retrieve the authenticated user's profile data.
+
+## Responses
+
+### Success (200)
+- **Description**: User profile retrieved successfully.
+- **Body**:
+  ```json
+  {
+    "_id": "user_id_here",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "socketId": null
+  }
+  ```
+
+### Client Error (401)
+- **Description**: Unauthorized access.
+- **Body**:
+  ```json
+  {
+    "message": "Unauthorized"
+  }
+  ```
+
+# User Logout Endpoint
+
+## Endpoint
+`GET /user/logout`
+
+## Description
+This endpoint is used to log out the authenticated user by clearing the authentication token.
+
+## Responses
+
+### Success (200)
+- **Description**: User logged out successfully.
+- **Body**:
+  ```json
+  {
+    "message": "Logged out"
+  }
+  ```
+
+### Client Error (401)
+- **Description**: Unauthorized access.
+- **Body**:
+  ```json
+  {
+    "message": "Unauthorized"
   }
   ```
 

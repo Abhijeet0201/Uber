@@ -182,9 +182,9 @@ This endpoint is used to log out the authenticated user by clearing the authenti
   {
     "message": "Unauthorized"
   }
-  ``
+  ```
   
-## Captain Registration Endpoint
+### Captain Registration Endpoint
 
 ## Endpoint
 `POST /captains/register`

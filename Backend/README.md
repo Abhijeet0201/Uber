@@ -184,7 +184,7 @@ This endpoint is used to log out the authenticated user by clearing the authenti
   }
   ``
   
-  # Captain Registration Endpoint
+## Captain Registration Endpoint
 
 ## Endpoint
 `POST /captains/register`

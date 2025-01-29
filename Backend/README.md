@@ -76,13 +76,7 @@ The request body should be a JSON object containing the following fields:
 - `email` (string, required, must be a valid email)
 - `password` (string, required, minimum 6 characters)
 
-Example:
-```json
-{
-  "email": "john.doe@example.com",
-  "password": "password123"
-}
-```
+
 
 ## Responses
 
@@ -188,7 +182,79 @@ This endpoint is used to log out the authenticated user by clearing the authenti
   {
     "message": "Unauthorized"
   }
+  ``
+  
+  # Captain Registration Endpoint
+
+## Endpoint
+`POST /captains/register`
+
+## Description
+This endpoint is used to register a new captain. It validates the input data, hashes the password, creates a new captain in the database, and returns an authentication token along with the captain data.
+
+## Request Body
+The request body should be a JSON object containing the following fields:
+
+- `fullname`: An object containing:
+  - `firstname` (string, required, minimum 3 characters)
+  - `lastname` (string, optional, minimum 3 characters)
+- `email` (string, required, must be a valid email)
+- `password` (string, required, minimum 6 characters)
+- `vehicle`: An object containing:
+  - `color` (string, required, minimum 3 characters)
+  - `plate` (string, required, minimum 3 characters)
+  - `capacity` (number, required, minimum 1)
+  - `vehicleType` (string, required, must be one of `car`, `motorcycle`, `auto`)
+
+
+## Responses
+
+### Success (201)
+- **Description**: Captain registered successfully.
+- **Body**:
+  ```json
+  {
+    "token": "jwt_token_here",
+    "captain": {
+      "_id": "captain_id_here",
+      "fullname": {
+        "firstname": "John",
+        "lastname": "Doe"
+      },
+      "email": "john.doe@example.com",
+      "vehicle": {
+        "color": "red",
+        "plate": "BR XY 1998",
+        "capacity": 3,
+        "vehicleType": "car"
+      }
+    }
+  }
   ```
+
+### Client Error (400)
+- **Description**: Invalid input data or email already in use.
+- **Body**:
+  ```json
+  {
+    "errors": [
+      {
+        "msg": "Invalid Email",
+        "param": "email",
+        "location": "body"
+      }
+    ]
+  }
+  ```
+
+### Server Error (500)
+- **Description**: Server error, please try again later.
+- **Body**:
+  ```json
+  {
+    "error": "Server error, please try again later"
+  }
+  ````
 
 
 

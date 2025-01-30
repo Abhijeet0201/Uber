@@ -1,7 +1,7 @@
 const { validationResult } = require("express-validator");
 const userModel = require("../Models/user.model");
 const userService = require("../services/user.service");
-const blcklistToken =require('../Models/backlistToken.modle')
+const blacklistToken =require('../Models/backlistToken.modle')
 
 //register
 const registerUser = async (req, res) => {
@@ -68,23 +68,29 @@ const loginUser = async (req, res) => {
             secure:process.env.NODE_ENV === 'production'
         })
 
-        res.status(200).json({ token, user });
+        res.status(200).json({token,message:"login successfully"});
     } catch (error) {
         console.error("Error during user login:", error);
         res.status(500).json({ error: "Server error, please try again later" });
     }
 };
-const getUserProfile = async (req,res) => {
+const getUserProfile = async (req, res) => {
     res.status(200).json(req.user);
 }
-const logoutUser = async (req,res) => {
-    res.clearCookies('token');
+const logoutUser = async (req, res) => {
+   
     const token = req.cookies?.token || 
     (req.headers.authorization && req.headers.authorization.split(" ")[1]);
 
-    await blcklistToken.create({token});
-    
-    res.status(200).json({message:'Logged out'});
+    try {
+        await blacklistToken.create({ token }); 
+        res.clearCookie("token", { httpOnly: true, secure: true, sameSite: "Strict" });  
+        
+        return res.status(200).json({ message: "Logged out successfully" });
+    } catch (error) {
+        console.error("Logout Error:", error);
+        return res.status(500).json({ message: "Server error during logout" });
+    }
 }
 
 module.exports = { 

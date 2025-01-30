@@ -254,7 +254,137 @@ The request body should be a JSON object containing the following fields:
   {
     "error": "Server error, please try again later"
   }
-  ````
+  ```
+
+# Captain Login Endpoint
+
+## Endpoint
+`POST /captains/login`
+
+## Description
+This endpoint is used to authenticate a captain. It validates the input data, checks the captain's credentials, and returns an authentication token along with the captain data.
+
+## Request Body
+The request body should be a JSON object containing the following fields:
+
+- `email` (string, required, must be a valid email)
+- `password` (string, required, minimum 6 characters)
+
+## Responses
+
+### Success (200)
+- **Description**: Captain authenticated successfully.
+- **Body**:
+  ```json
+  {
+    "token": "jwt_token_here",
+    "captain": {
+      "_id": "captain_id_here",
+      "fullname": {
+        "firstname": "John",
+        "lastname": "Doe"
+      },
+      "email": "john.doe@example.com",
+      "vehicle": {
+        "color": "red",
+        "plate": "BR XY 1998",
+        "capacity": 3,
+        "vehicleType": "car"
+      }
+    }
+  }
+  ```
+
+### Client Error (400)
+- **Description**: Invalid input data.
+- **Body**:
+  ```json
+  {
+    "errors": [
+      {
+        "msg": "Invalid Email",
+        "param": "email",
+        "location": "body"
+      }
+    ]
+  }
+  ```
+
+### Client Error (401)
+- **Description**: Invalid email or password.
+- **Body**:
+  ```json
+  {
+    "message": "Invalid email or password"
+  }
+  ```
+
+# Captain Profile Endpoint
+
+## Endpoint
+`GET /captains/profile`
+
+## Description
+This endpoint is used to retrieve the authenticated captain's profile data.
+
+## Responses
+
+### Success (200)
+- **Description**: Captain profile retrieved successfully.
+- **Body**:
+  ```json
+  {
+    "_id": "captain_id_here",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "vehicle": {
+      "color": "red",
+      "plate": "BR XY 1998",
+      "capacity": 3,
+      "vehicleType": "car"
+    }
+  }
+  ```
+
+### Client Error (401)
+- **Description**: Unauthorized access.
+- **Body**:
+  ```json
+  {
+    "message": "Unauthorized"
+  }
+  ```
+
+# Captain Logout Endpoint
+
+## Endpoint
+`GET /captains/logout`
+
+## Description
+This endpoint is used to log out the authenticated captain by clearing the authentication token.
+
+## Responses
+
+### Success (200)
+- **Description**: Captain logged out successfully.
+- **Body**:
+  ```json
+  {
+    "message": "Logged out"
+  }
+  ```
+
+### Client Error (401)
+- **Description**: Unauthorized access.
+- **Body**:
+  ```json
+  {
+    "message": "Unauthorized"
+  }
+  ```
 
 
 

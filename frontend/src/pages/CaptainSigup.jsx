@@ -12,7 +12,7 @@ function CaptainSigup() {
       e.preventDefault();
   
       const newUserData = {
-        username:{
+        fullName:{
           firstName:firstName,
           LastName:lastName
         },

@@ -2,13 +2,21 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 
 
-function UserLogin() {
+function UserLogin () {
   const[email,setEmail] = useState('');
   const[password,setPassword] = useState('');
+  const[userData, setUserData]= useState({})
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(email,password);
+    //console.log(email,password);
+    setUserData({
+      email:email,
+      password:password
+    })
+    console.log(userData);
+    setEmail('')
+    setPassword('')
     
   }
   return (
@@ -51,9 +59,9 @@ function UserLogin() {
       </form>
       </div>
       <div>
-        <button className="bg-[#10b461]  text-white font-semibold mb-3 rounded px-4 py-2  w-full text-lg placeholder:text-base">
+        <Link to='/captains-login' className="bg-[#10b461] flex items-center justify-center text-white font-semibold mb-3 rounded px-4 py-2  w-full text-lg placeholder:text-base">
           Sign in as Captain
-        </button>
+        </Link>
       </div>
     </div>
   )
